@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+.component-Filter.filter-form {
+  .el-form-item {
+    width: 100%;
+  }
+  
+  .operates {
+    text-align: right;
+  }
+  
+  .reset-btn {
+    margin-left: 10px;
+  }
+  .el-autocomplete, .el-select, .el-date-editor {
+    width: 100%;
+  }
+}
+
