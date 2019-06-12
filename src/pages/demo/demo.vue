@@ -1,12 +1,14 @@
 <template>
     <div class="demo">
         <table-page
+          ref="tablePage"
           :filters="filters"
-          :get-data="mockFetch"
+          :get-data="mockTableFetch"
           :columns="columns"
           @select-all="handleSelectAll"
           @selection-change="handleSelectChange"
           @select="handleSelect"
+          label-width="120px"
         >
             <template v-slot:operates>
                 <div class="table-operates">
@@ -17,8 +19,9 @@
             <template v-slot:tableTips>
                 <el-alert title="成功提示的文案" type="success" :closable="false"/>
             </template>
-            <template v-slot:aaa="slotProps">
-                <el-button type='text'>查看{{slotProps.scope.row.value}}</el-button>
+            <template v-slot:rowOperate="slotProps">
+                <el-button type='text'>查看</el-button>
+                <el-button type='text' @click="handleDelete(slotProps.scope.row.id)">删除</el-button>
             </template>
         </table-page>
     </div>

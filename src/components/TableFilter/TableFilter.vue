@@ -4,7 +4,7 @@
   ref="filterForm"
   class="filter-form component-Filter"
   label-position="right"
-  label-width="100px"
+  :label-width="labelWidth"
   v-bind="filterFormProps" >
     <el-row :gutter="20">
       <el-col :span="getSpan(item)" :key="index" v-for="(item, index) in filterItems">

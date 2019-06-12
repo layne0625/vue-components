@@ -5,7 +5,9 @@ export default {
   name: 'ocj-TablePage',
   data() {
     return {
-      tableData: [],
+      tableData: { total: 0, data: [] },
+      currentPage: 1,
+      pageSize: 10,
     };
   },
   props: {
@@ -25,6 +27,10 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    labelWidth: {
+      type: String,
+      default: '100px',
+    },
     filterFormProps: {
       type: Object,
       default: () => ({}),
@@ -35,8 +41,25 @@ export default {
     this.tableData = tableData;
   },
   methods: {
-    handleFetch(params) {
-      console.log(params);
+    handleFetch(resetPage = false) {
+      const filterFormValues = this.$refs.tableFilter.filterForm;
+      if (resetPage) {
+        this.pageSize = 10;
+        this.currentPage = 1;
+      }
+      this.getData({ ...filterFormValues, pageSize: this.pageSize, pageNo: this.currentPage });
+    },
+    refetch() {
+      this.handleFetch();
+    },
+    handleSizeChange(pageSize) {
+      this.pageSize = pageSize;
+      this.currentPage = 1;
+      this.handleFetch();
+    },
+    handleCurrentChange(currentPage) {
+      this.currentPage = currentPage;
+      this.handleFetch(false);
     },
     handleSelectionChange(selection) {
       this.$emit('selection-change', selection);

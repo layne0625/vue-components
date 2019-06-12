@@ -1,3 +1,4 @@
+const mockData = [{ label: 'aa', value: 1, id: 1 }, { label: 'aa2', value: 2, id: 2 }, { label: 'bb', value: 3, id: 3 }, { label: 'cc', value: 4, id: 4 }, { label: 'dd', value: 5, id: 5 }];
 export default {
   data() {
     return {
@@ -22,7 +23,7 @@ export default {
       }, {
         prop: 'name4',
         label: 'Title6',
-        slotName: 'aaa',
+        slotName: 'rowOperate',
       }],
       filters: [{
         name: 'filter1',
@@ -67,9 +68,16 @@ export default {
   },
   methods: {
     mockFetch(keyword) {
-      const mockData = [{ label: 'aa', value: 1 }, { label: 'aa2', value: 2 }, { label: 'bb', value: 3 }, { label: 'cc', value: 4 }, { label: 'dd', value: 5 }];
       const data = mockData.filter(item => item.label.includes(keyword));
       return Promise.resolve(keyword ? data : mockData);
+    },
+    mockTableFetch(params) {
+      console.log(params);
+      return Promise.resolve({ total: 100, data: mockData });
+    },
+    handleDelete(id) {
+      console.log(id);
+      this.$refs.tablePage.refetch();
     },
     handleSelectAll(selection) {
       console.log(selection);

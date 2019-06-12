@@ -31,6 +31,10 @@ export default {
         return [2, 3, 4].indexOf(value) !== -1;
       },
     },
+    labelWidth: {
+      type: String,
+      default: '100px',
+    },
     filterFormProps: {
       type: Object,
       default: () => ({
@@ -39,11 +43,11 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.$emit('fetch', this.filterForm);
+      this.$emit('fetch', true);
     },
     handleReset() {
       this.filterForm = this.getInitFilterForm();
-      this.$emit('fetch', this.filterForm);
+      this.$emit('fetch', true);
     },
     toggleCollapse() {
       this.collapse = !this.collapse;
