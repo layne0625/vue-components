@@ -1,5 +1,5 @@
 # vue-component
-- TablePage
+- [TablePage](https://github.com/layne0625/vue-components/blob/master/src/components/TablePage/reademe.md)
 ## Project setup
 ```
 yarn install
