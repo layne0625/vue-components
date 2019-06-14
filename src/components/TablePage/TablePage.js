@@ -29,8 +29,12 @@ export default {
     },
   },
   methods: {
+    async fetchData(params) {
+      const data = await this.getData(params);
+      this.tableData = data;
+    },
     initFetch(values) {
-      this.getData({ ...values, pageSize: this.currentPage, pageNo: this.currentPage });
+      this.fetchData({ ...values, pageSize: this.currentPage, pageNo: this.currentPage });
     },
     handleFetch(resetPage = false) {
       const filterFormValues = this.$refs.tableFilter.filterForm;
@@ -38,7 +42,7 @@ export default {
         this.pageSize = 10;
         this.currentPage = 1;
       }
-      this.getData({ ...filterFormValues, pageSize: this.pageSize, pageNo: this.currentPage });
+      this.fetchData({ ...filterFormValues, pageSize: this.pageSize, pageNo: this.currentPage });
     },
     refetch() {
       this.handleFetch();
