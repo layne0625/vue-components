@@ -6,12 +6,15 @@ export default {
   data() {
     return {
       filterForm: this.getInitFilterForm(),
-      collapse: true,
+      collapse: this.collapsible,
       itemSpan: (24 / this.col),
     };
   },
   components: {
     FormItem,
+  },
+  created() {
+    this.$emit('init', this.filterForm);
   },
   props: {
     filters: {
@@ -20,7 +23,7 @@ export default {
         return [];
       },
     },
-    canCollapse: {
+    collapsible: {
       type: Boolean,
       default: true,
     },
@@ -31,9 +34,13 @@ export default {
         return [2, 3, 4].indexOf(value) !== -1;
       },
     },
-    labelWidth: {
-      type: String,
-      default: '100px',
+    withOperate: {
+      type: Boolean,
+      default: true,
+    },
+    itemGutter: {
+      type: Number,
+      default: 12,
     },
     filterFormProps: {
       type: Object,
@@ -93,7 +100,7 @@ export default {
       const items = [];
       let num = 0;
       this.filters.forEach((item) => {
-        if (num < 4) {
+        if (num < this.col) {
           items.push(item);
           num = item.itemType === 'rangePicker' ? num + rangePickerSpan : num + 1;
         }
@@ -101,13 +108,13 @@ export default {
       return items;
     },
     showCollapse() {
-      const total = this.filters.slice(0, 4).reduce((prev, cur) => {
+      const total = this.filters.reduce((prev, cur) => {
         if (cur.itemType === 'rangePicker') {
           return prev + rangePickerSpan;
         }
         return prev + 1;
       }, 0);
-      if (this.canCollapse === false || (this.filters.length <= 4 && total <= 4)) {
+      if (this.collapsible === false || total <= this.col) {
         return false;
       }
       return true;
@@ -120,6 +127,12 @@ export default {
         return prev + 1;
       }, 0);
       return (this.col - 1 - total % this.col) * this.itemSpan;
+    },
+    labelWidth() {
+      return (this.filterFormProps && this.filterFormProps.labelWidth) || '100px';
+    },
+    labelPosition() {
+      return (this.filterFormProps && this.filterFormProps.labelPosition) || 'right';
     },
   },
 };

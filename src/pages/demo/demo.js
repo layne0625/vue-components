@@ -28,6 +28,7 @@ export default {
       filters: [{
         name: 'filter1',
         label: 'filter1',
+        defaultValue: 'filter1',
       }, {
         label: 'filter2',
         name: 'filter2',

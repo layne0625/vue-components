@@ -1,11 +1,12 @@
 <template>
   <el-form
-  :model="filterForm"
-  ref="filterForm"
-  class="filter-form component-Filter"
-  label-position="right"
-  :label-width="labelWidth"
-  v-bind="filterFormProps" >
+    :model="filterForm"
+    ref="filterForm"
+    class="filter-form component-Filter"
+    :label-position="labelPosition"
+    :label-width="labelWidth"
+    v-bind="filterFormProps"
+  >
     <el-row :gutter="20">
       <el-col :span="getSpan(item)" :key="index" v-for="(item, index) in filterItems">
         <el-form-item :label="item.label">

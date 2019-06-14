@@ -11,10 +11,6 @@ export default {
     };
   },
   props: {
-    filters: {
-      type: Array,
-      required: true,
-    },
     columns: {
       type: Array,
       required: true,
@@ -27,20 +23,15 @@ export default {
       type: Object,
       default: () => ({}),
     },
-    labelWidth: {
-      type: String,
-      default: '100px',
+    pagination: {
+      type: Boolean,
+      default: true,
     },
-    filterFormProps: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
-  async created() {
-    const tableData = await this.getData();
-    this.tableData = tableData;
   },
   methods: {
+    initFetch(values) {
+      this.getData({ ...values, pageSize: this.currentPage, pageNo: this.currentPage });
+    },
     handleFetch(resetPage = false) {
       const filterFormValues = this.$refs.tableFilter.filterForm;
       if (resetPage) {

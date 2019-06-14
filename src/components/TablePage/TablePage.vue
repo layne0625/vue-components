@@ -1,11 +1,11 @@
 <template>
     <div class="component-TablePage">
       <table-filter
-      ref="tableFilter"
-      :filters='filters'
-      @fetch="handleFetch"
-      :filter-form-props="filterFormProps"
-      :label-width="labelWidth"/>
+        ref="tableFilter"
+        v-bind="$attrs"
+        @init="initFetch"
+        @fetch="handleFetch"
+      />
       <slot name='operates'></slot>
       <slot name='tableTips'></slot>
       <el-table
@@ -23,16 +23,19 @@
               </el-table-column>
           </slot>
       </el-table>
-      <div class="table-pagination">
-          <el-pagination
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-              :current-page="currentPage"
-              :page-sizes="[10, 20, 30, 40]"
-              :page-size="pageSize"
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="tableData.total">
-          </el-pagination>
+      <div class="table-pagination" v-if="pagination">
+          <slot name="pagination">
+              <el-pagination
+                  @size-change="handleSizeChange"
+                  @current-change="handleCurrentChange"
+                  :current-page="currentPage"
+                  :page-sizes="[10, 20, 30, 40]"
+                  :page-size="pageSize"
+                  layout="total, sizes, prev, pager, next, jumper"
+                  :total="tableData.total">
+              </el-pagination>
+          </slot>
+
       </div>
     </div>
 </template>
